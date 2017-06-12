@@ -2,14 +2,14 @@
 
 function cluster() {
   if [ "$1" == "up" ]; then
-	  cluster_up $2 $3
+    cluster_up $2 $3
   elif [ "$1" == "down" ]; then
-	  cluster_down
+    cluster_down
   elif [ "$1" == "clear" ]; then
-	  cluster_clear
+    cluster_clear
   else
-	  echo "Oops..."
-	  echo "Try 'up', 'down', or 'clear'"
+    echo "Oops..."
+    echo "Try 'up', 'down', or 'clear'"
   fi
 }
 
