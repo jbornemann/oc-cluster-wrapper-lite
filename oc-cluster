@@ -1,0 +1,63 @@
+#!/bin/bash
+
+function cluster() {
+  if [ "$1" == "up" ]; then
+	  cluster_up $2 $3
+  elif [ "$1" == "down" ]; then
+	  cluster_down
+  elif [ "$1" == "clear" ]; then
+	  cluster_clear
+  else
+	  echo "Oops..."
+	  echo "Try 'up', 'down', or 'clear'"
+  fi
+}
+
+function cluster_down() {
+  oc cluster down
+  echo "It's down.."
+}
+
+function cluster_up() {
+  #Check if we need to initialize
+  if [ ! -d $HOME/openshift-local-data/data ]; then
+	  mkdir -p $HOME/openshift-local-data/data
+  fi
+  if [ ! -d $HOME/openshift-local-data/pv ]; then
+	  mkdir -p $HOME/openshift-local-data/pv
+  fi
+  local default_o_type=${DEFAULT_OS_TYPE:-ose}
+  local default_version=${DEFAULT_OS_VERSION:-latest}
+  local o_type=$( [ ! -f $HOME/openshift-local-data/type ] && echo $default_o_type || cat $HOME/openshift-local-data/type )
+  local version=$( [ ! -f $HOME/openshift-local-data/version ] && echo $default_version || cat $HOME/openshift-local-data/version )
+  if [ "$1" != "" ]; then
+	  o_type="$1"
+  fi
+  if [ "$2" != "" ]; then
+	  version="$2"
+  fi
+  echo $o_type > $HOME/openshift-local-data/type
+  echo $version > $HOME/openshift-local-data/version
+  local pull_string
+  if [ $o_type == "ose" ]; then
+    pull_string="registry.access.redhat.com/openshift3/ose"
+  else
+	pull_string="openshift/origin"
+  fi
+  echo "Using $(tput setaf 2)${o_type}$(tput sgr0), pulling from $(tput setaf 5)${pull_string}$(tput sgr0)"
+  echo "Version $(tput setaf 4)${version}$(tput sgr0)"
+  oc cluster up --use-existing-config=false --logging=false --metrics=false --host-pv-dir="$HOME/openshift-local-data/pv" --host-data-dir="$HOME/openshift-local-data/data" --image="${pull_string}" --version="${version}"
+}
+
+function cluster_clear() {
+  echo "Deleting data.."
+  rm -rf $HOME/openshift-local-data/pv/*
+  rm -rf $HOME/openshift-local-data/data/*
+  echo "Data deleted"
+  echo "Deleting settings.."
+  rm -f $HOME/openshift-local-data/type
+  rm -f $HOME/openshift-local-data/version
+  echo "Settings deleted"
+  echo
+  echo "A new day, a new cluster"
+}
