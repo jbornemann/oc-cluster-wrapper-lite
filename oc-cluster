@@ -49,6 +49,8 @@ function cluster_up() {
   echo "Using $(tput setaf 2)${o_type}$(tput sgr0), pulling from $(tput setaf 5)${pull_string}$(tput sgr0)"
   echo "Version $(tput setaf 4)${version}$(tput sgr0)"
   oc cluster up --server-loglevel=6 --use-existing-config=false --logging=false --metrics=false --host-pv-dir="$HOME/openshift-local-data/pv" --host-data-dir="$HOME/openshift-local-data/data" --image="${pull_string}" --version="${version}" > /dev/null
+  echo "Starting up server.."
+  echo "Server logs will show below when server has started"
   cluster_logs
 }
 
