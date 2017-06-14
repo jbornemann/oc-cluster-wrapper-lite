@@ -1,5 +1,5 @@
 # oc-cluster-wrapper-lite
-A lightweight wrapper around oc cluster, for saving persistence and runtime settings
+A lightweight wrapper around oc cluster, for simple local OpenShift development
 
 # Setup
 
@@ -8,6 +8,7 @@ A lightweight wrapper around oc cluster, for saving persistence and runtime sett
 **DEFAULT_OS_TYPE="ose"**
 **DEFAULT_OS_VERSION="v3.4"**
 
+Will use OSE latest if this isn't specified
 
 2.) Source oc-cluster in your shell. e.g
 
@@ -31,4 +32,8 @@ and it will bring up the previous ose v3.4 cluster.
 
 **cluster clear**
 
-will erase saved settings, allowing you to start fresh.
+will erase saved settings, and persistence - allowing you to start fresh.
+
+**cluster logs**
+
+Will show curated master logs, highlighting debug vs warning vs error log messages. This automatically runs on cluster up. 
