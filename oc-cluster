@@ -54,7 +54,7 @@ function cluster_up() {
 }
 
 function cluster_logs() {
-  docker exec -it `docker ps -q -f name=origin` tail -f /var/log/messages |
+  docker exec -it `docker ps -q -f name=origin` bash -c "tail -f /var/log/messages 2> /dev/null || tail -f /var/log/docker.log" |
   sed "s/debug/$(tput setaf 5)debug$(tput sgr0)/
        s/info/$(tput setaf 6)info$(tput sgr0)/
        s/warn/$(tput setaf 9)warn$(tput sgr0)/
