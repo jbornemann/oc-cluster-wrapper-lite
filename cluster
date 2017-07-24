@@ -74,3 +74,14 @@ function cluster_clear() {
   echo
   echo "A new day, a new cluster"
 }
+
+
+case $1 in 
+	"up") cluster_up $2 $3 ;;
+	"down") cluster_down   ;;
+   "clear") cluster_clear  ;;
+   "logs")  cluster_logs   ;; 
+   *) 
+    echo "Oops..."
+    echo "Try 'up', 'down', 'logs', or 'clear'" ;;
+esac

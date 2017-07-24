@@ -10,9 +10,9 @@ A lightweight wrapper around oc cluster, for simple local OpenShift development
 
 Will use OSE latest if this isn't specified
 
-2.) Source oc-cluster in your shell. e.g
+2.) Add cluster to your path. e.g
 
-**source $HOME/oc-cluster-wrapper-lite/oc-cluster**
+**cp $HOME/oc-cluster-wrapper-lite/cluster /usr/local/bin**
 
 # Description/Usage
 
