@@ -1,20 +1,5 @@
 #!/bin/bash
 
-function cluster() {
-  if [ "$1" == "up" ]; then
-    cluster_up $2 $3
-  elif [ "$1" == "down" ]; then
-    cluster_down
-  elif [ "$1" == "clear" ]; then
-    cluster_clear
-  elif [ "$1" == "logs" ]; then
-    cluster_logs
-  else
-    echo "Oops..."
-    echo "Try 'up', 'down', 'logs', or 'clear'"
-  fi
-}
-
 function cluster_down() {
   oc cluster down
   echo "It's down.."
