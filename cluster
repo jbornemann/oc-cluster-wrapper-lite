@@ -62,11 +62,11 @@ function cluster_clear() {
 
 
 case $1 in 
-	"up") cluster_up $2 $3 ;;
-	"down") cluster_down   ;;
-   "clear") cluster_clear  ;;
-   "logs")  cluster_logs   ;; 
-   *) 
+  "up")  cluster_up $2 $3 ;;
+  "down")  cluster_down   ;;
+  "clear") cluster_clear  ;;
+  "logs")  cluster_logs   ;; 
+  *) 
     echo "Oops..."
     echo "Try 'up', 'down', 'logs', or 'clear'" ;;
 esac
